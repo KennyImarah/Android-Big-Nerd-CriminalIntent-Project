@@ -27,11 +27,16 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
+
+    //newInstance method
     public static CrimeFragment newInstance(UUID crimeId){
+        //argument bundle
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeId);
 
+        //instance of fragment
         CrimeFragment fragment = new CrimeFragment();
+        //attach bundle to fragment
         fragment.setArguments(args);
 
         return fragment;
@@ -42,9 +47,7 @@ public class CrimeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Use getActivity method to fetch MainActivity's intent  extra
-        UUID crimeId = (UUID) getActivity().getIntent()
-                .getSerializableExtra("MainActivity.EXTRA_CRIME_ID");
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);  //fetch Crime from CrimeLab
     }
 
